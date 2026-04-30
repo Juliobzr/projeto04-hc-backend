@@ -17,5 +17,14 @@
   "bugs": {
     "url": "https://github.com/Juliobzr/projeto04-hc-backend/issues"
   },
-  "homepage": "https://github.com/Juliobzr/projeto04-hc-backend#readme"
+  "homepage": "https://github.com/Juliobzr/projeto04-hc-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+  
 }

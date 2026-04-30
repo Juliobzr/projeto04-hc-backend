@@ -1,0 +1,21 @@
+{
+  "name": "projeto04-hc-backend",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000p\u0000r\u0000o\u0000j\u0000e\u0000t\u0000o\u00000\u00004\u0000-\u0000h\u0000c\u0000-\u0000b\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juliobzr/projeto04-hc-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Juliobzr/projeto04-hc-backend/issues"
+  },
+  "homepage": "https://github.com/Juliobzr/projeto04-hc-backend#readme"
+}

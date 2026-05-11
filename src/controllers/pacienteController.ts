@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import prisma from "../prisma/client"
+import prisma from "../../prisma/client"
 
 // lista todos os pacientes do usuário logado
 export async function listar(req: Request, res: Response) {

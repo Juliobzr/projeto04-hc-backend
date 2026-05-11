@@ -1,31 +1,28 @@
 {
-  "name": "projeto04-hc-backend",
+  "name": "hc-triagem-backend",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000p\u0000r\u0000o\u0000j\u0000e\u0000t\u0000o\u00000\u00004\u0000-\u0000h\u0000c\u0000-\u0000b\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000\r\u0000 \u0000",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Juliobzr/projeto04-hc-backend.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "bugs": {
-    "url": "https://github.com/Juliobzr/projeto04-hc-backend/issues"
-  },
-  "homepage": "https://github.com/Juliobzr/projeto04-hc-backend#readme",
   "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "@prisma/client": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.0",
+    "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "@types/bcryptjs": "^2.4.0",
+    "@types/cors": "^2.8.0",
+    "@types/express": "^4.17.0",
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/node": "^20.0.0",
+    "nodemon": "^3.0.0",
+    "prisma": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
   }
 }

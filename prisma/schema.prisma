@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id           String               @id @default(uuid())
+  nome         String
+  email        String               @unique
+  senha        String
+  criadoEm    DateTime             @default(now())
+  pacientes    Paciente[]
+  configuracao ConfiguracaoUsuario?
+}
+
+model ConfiguracaoUsuario {
+  id          String  @id @default(uuid())
+  usuarioId   String  @unique
+  usuario     Usuario @relation(fields: [usuarioId], references: [id])
+  numero      String?
+  instituicao String?
+  cidade      String?
+  pais        String  @default("Brasil")
+  estado      String  @default("PE")
+  foto        String? // base64
+}
+
+model Paciente {
+  id              String     @id @default(uuid())
+  nome            String
+  nomeSocial      String?
+  dataNascimento  String
+  cpf             String
+  telefone        String?
+  nomeResponsavel String?
+  prontuario      String?
+  cartaoSUS       String?
+  especialidade   String?
+  unidade         String?
+  deficiencia     String     @default("Não")
+  criadoEm       DateTime   @default(now())
+  usuarioId       String
+  usuario         Usuario    @relation(fields: [usuarioId], references: [id])
+  tea             PerfilTEA?
+}
+
+model PerfilTEA {
+  id                     String   @id @default(uuid())
+  pacienteId             String   @unique
+  paciente               Paciente @relation(fields: [pacienteId], references: [id])
+  nivelSuporte           String?
+  autonomia              String?
+  comunicacao            String?
+  comunicacaoAlternativa String?
+  interacaoSocial        String[]
+  fatoresDesregulacao    String[]
+  dificuldadesSensoriais String[]
+  fatoresClinicos        String[]
+  hiperfoco              String?
+}

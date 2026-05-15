@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { listar, buscarPorId, buscarPorCpf, criar, atualizar, excluir } from "../controllers/pacienteController"
+import { listar, buscarPorId, buscarPorCpf, criar, atualizar, excluir } from "../controllers/patientController"
 import { autenticar } from "../middlewares/authMiddleware"
 
 const router = Router()

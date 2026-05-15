@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { buscarConfiguracoes, salvarConfiguracoes } from "../controllers/usuarioController"
+import { buscarConfiguracoes, salvarConfiguracoes } from "../controllers/userController"
 import { autenticar } from "../middlewares/authMiddleware"
 
 const router = Router()

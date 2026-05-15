@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import prisma from "../../prisma/client"
+import prisma from "../lib/prisma/client"
 
 // busca as configurações do usuário logado
 export async function buscarConfiguracoes(req: Request, res: Response) {

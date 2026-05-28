@@ -19,3 +19,15 @@ export function autenticar(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json({ erro: "Token inválido ou expirado" })
   }
 }
+
+export function autorizarRoles(...rolesPermitidas: string[]) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const role = req.body?.usuarioLogado?.role
+
+    if (!role || !rolesPermitidas.includes(role)) {
+      return res.status(403).json({ erro: "Acesso negado" })
+    }
+
+    next()
+  }
+}

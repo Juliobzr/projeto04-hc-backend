@@ -5,7 +5,7 @@ import prisma from "../lib/prisma/client"
 
 export async function cadastrar(req: Request, res: Response) {
   try {
-    const { nome, email, senha } = req.body
+    const { nome, email, senha, role } = req.body
 
     if (!nome || !email || !senha) {
       return res.status(400).json({ erro: "Preencha todos os campos" })
@@ -19,13 +19,19 @@ export async function cadastrar(req: Request, res: Response) {
     const senhaCriptografada = await bcrypt.hash(senha, 10)
 
     const usuario = await prisma.usuario.create({
-      data: { nome, email, senha: senhaCriptografada },
+      data: {
+        nome,
+        email,
+        senha: senhaCriptografada,
+        role: role === "GESTOR" ? "GESTOR" : "FUNCIONARIO",
+      },
     })
 
     return res.status(201).json({
       id: usuario.id,
       nome: usuario.nome,
       email: usuario.email,
+      role: usuario.role,
     })
   } catch (error) {
     return res.status(500).json({ erro: "Erro ao cadastrar usuário" })
@@ -51,7 +57,7 @@ export async function login(req: Request, res: Response) {
     }
 
     const token = jwt.sign(
-      { id: usuario.id, nome: usuario.nome, email: usuario.email },
+      { id: usuario.id, nome: usuario.nome, email: usuario.email, role: usuario.role },
       process.env.JWT_SECRET!,
       { expiresIn: "8h" }
     )
@@ -62,6 +68,7 @@ export async function login(req: Request, res: Response) {
         id: usuario.id,
         nome: usuario.nome,
         email: usuario.email,
+        role: usuario.role,
       },
     })
   } catch (error) {

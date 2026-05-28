@@ -1,13 +1,9 @@
 import { Request, Response } from "express"
 import prisma from "../lib/prisma/client"
 
-// lista todos os pacientes do usuário logado
 export async function listar(req: Request, res: Response) {
   try {
-    const { usuarioLogado } = req.body
-
     const pacientes = await prisma.paciente.findMany({
-      where: { usuarioId: usuarioLogado.id },
       include: { tea: true },
       orderBy: { criadoEm: "desc" },
     })
@@ -18,7 +14,6 @@ export async function listar(req: Request, res: Response) {
   }
 }
 
-// busca um paciente pelo id
 export async function buscarPorId(req: Request, res: Response) {
   try {
     const { id } = req.params
@@ -38,15 +33,12 @@ export async function buscarPorId(req: Request, res: Response) {
   }
 }
 
-// busca paciente por CPF
 export async function buscarPorCpf(req: Request, res: Response) {
   try {
     const { cpf } = req.query
-    const { usuarioLogado } = req.body
 
     const pacientes = await prisma.paciente.findMany({
       where: {
-        usuarioId: usuarioLogado.id,
         cpf: { contains: String(cpf) },
       },
       include: { tea: true },
@@ -58,7 +50,6 @@ export async function buscarPorCpf(req: Request, res: Response) {
   }
 }
 
-// cria um novo paciente, com perfil TEA se tiver
 export async function criar(req: Request, res: Response) {
   try {
     const { usuarioLogado, tea, ...dadosPaciente } = req.body
@@ -71,7 +62,6 @@ export async function criar(req: Request, res: Response) {
       data: {
         ...dadosPaciente,
         usuarioId: usuarioLogado.id,
-        // se veio perfil TEA junto, cria junto
         ...(tea && {
           tea: { create: tea },
         }),
@@ -85,7 +75,6 @@ export async function criar(req: Request, res: Response) {
   }
 }
 
-// atualiza paciente e o perfil TEA se tiver
 export async function atualizar(req: Request, res: Response) {
   try {
     const { id } = req.params
@@ -95,7 +84,6 @@ export async function atualizar(req: Request, res: Response) {
       where: { id },
       data: {
         ...dadosPaciente,
-        // upsert: cria o perfil TEA se não existir, atualiza se existir
         ...(tea && {
           tea: {
             upsert: {
@@ -114,12 +102,10 @@ export async function atualizar(req: Request, res: Response) {
   }
 }
 
-// exclui paciente (e o perfil TEA junto por causa da relação)
 export async function excluir(req: Request, res: Response) {
   try {
     const { id } = req.params
 
-    // precisa deletar o TEA antes por causa da chave estrangeira
     await prisma.perfilTEA.deleteMany({ where: { pacienteId: id } })
     await prisma.paciente.delete({ where: { id } })
 

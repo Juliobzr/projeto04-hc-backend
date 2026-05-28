@@ -7,11 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum RoleUsuario {
+  FUNCIONARIO
+  GESTOR
+}
+
 model Usuario {
   id           String               @id @default(uuid())
   nome         String
   email        String               @unique
   senha        String
+  role         RoleUsuario          @default(FUNCIONARIO)
   criadoEm    DateTime             @default(now())
   pacientes    Paciente[]
   configuracao ConfiguracaoUsuario?

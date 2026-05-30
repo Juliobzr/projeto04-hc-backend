@@ -34,6 +34,7 @@ export async function cadastrar(req: Request, res: Response) {
       role: usuario.role,
     })
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ erro: "Erro ao cadastrar usuário" })
   }
 }

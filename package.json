@@ -2,9 +2,12 @@
   "name": "hc-triagem-backend",
   "version": "1.0.0",
   "scripts": {
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.0.0",
@@ -22,7 +25,7 @@
     "@types/node": "^20.0.0",
     "nodemon": "^3.0.0",
     "prisma": "^5.0.0",
-    "ts-node": "^10.9.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.0.0"
   }
 }

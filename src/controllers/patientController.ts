@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import prisma from "../lib/prisma/client"
+import { gerarRelatorioIA } from "../services/reportService"
 
 export async function listar(req: Request, res: Response) {
   try {
@@ -112,5 +113,35 @@ export async function excluir(req: Request, res: Response) {
     return res.status(204).send()
   } catch (error) {
     return res.status(500).json({ erro: "Erro ao excluir paciente" })
+  }
+}
+
+export async function gerarRelatorio(req: Request, res: Response) {
+  try {
+    const { id } = req.params
+
+    const paciente = await prisma.paciente.findUnique({
+      where: { id },
+      include: { tea: true },
+    })
+
+    if (!paciente) {
+      return res.status(404).json({ erro: "Paciente não encontrado" })
+    }
+
+    if (!paciente.tea) {
+      return res.status(400).json({ erro: "Paciente não possui dados TEA para gerar relatório" })
+    }
+
+    const relatorio = await gerarRelatorioIA({
+      nome: paciente.nome,
+      dataNascimento: paciente.dataNascimento,
+      tea: paciente.tea,
+    })
+
+    return res.json({ relatorio })
+  } catch (error: any) {
+    console.error("Erro ao gerar relatório:", error)
+    return res.status(500).json({ erro: error.message || "Erro ao gerar relatório" })
   }
 }

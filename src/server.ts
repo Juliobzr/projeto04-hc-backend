@@ -11,7 +11,7 @@ const app = express()
 const PORT = process.env.PORT || 3333
 
 // permite receber requisições do frontend Next.js
-app.use(cors({ origin: ["http://localhost:3000", "https://projeto04-hc.vercel.app/"], credentials: true }))
+app.use(cors({ origin: ["http://localhost:3000", "https://projeto04-hc.vercel.app"], credentials: true }))
 
 // limite maior por causa da foto em base64
 app.use(express.json({ limit: "10mb" }))

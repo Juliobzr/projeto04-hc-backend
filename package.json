@@ -7,7 +7,7 @@
     "start": "node dist/server.js"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node src/lib/prisma/seed.ts"
   },
   "dependencies": {
     "@google/genai": "^2.7.0",

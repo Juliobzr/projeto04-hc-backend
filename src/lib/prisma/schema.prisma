@@ -67,4 +67,5 @@ model PerfilTEA {
   dificuldadesSensoriais String[]
   fatoresClinicos        String[]
   hiperfoco              String?
+  relatorioIA            String?       
 }

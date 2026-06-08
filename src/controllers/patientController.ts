@@ -53,18 +53,38 @@ export async function buscarPorCpf(req: Request, res: Response) {
 
 export async function criar(req: Request, res: Response) {
   try {
-    const { usuarioLogado, tea, ...dadosPaciente } = req.body
+    const { usuarioLogado, tea, gerarRelatorioAI, ...dadosPaciente } = req.body
 
     if (!dadosPaciente.nome || !dadosPaciente.cpf || !dadosPaciente.dataNascimento) {
       return res.status(400).json({ erro: "Nome, CPF e data de nascimento são obrigatórios" })
+    }
+
+    let teaData = tea
+
+    // Se for solicitado gerar relatório, gera e adiciona ao tea
+    if (gerarRelatorioAI && tea) {
+      try {
+        const relatorio = await gerarRelatorioIA({
+          nome: dadosPaciente.nome,
+          dataNascimento: dadosPaciente.dataNascimento,
+          tea: tea,
+        })
+
+        teaData = {
+          ...tea,
+          relatorioIA: relatorio,
+        }
+      } catch (error) {
+        console.error("Erro ao gerar relatório:", error)
+      }
     }
 
     const paciente = await prisma.paciente.create({
       data: {
         ...dadosPaciente,
         usuarioId: usuarioLogado.id,
-        ...(tea && {
-          tea: { create: tea },
+        ...(teaData && {
+          tea: { create: teaData },
         }),
       },
       include: { tea: true },
@@ -79,17 +99,44 @@ export async function criar(req: Request, res: Response) {
 export async function atualizar(req: Request, res: Response) {
   try {
     const { id } = req.params
-    const { usuarioLogado, tea, ...dadosPaciente } = req.body
+    const { usuarioLogado, tea, gerarRelatorioAI, ...dadosPaciente } = req.body
+
+    let teaData = tea
+
+    // Se for solicitado gerar relatório, gera e adiciona ao tea
+    if (gerarRelatorioAI && tea) {
+      try {
+        const paciente = await prisma.paciente.findUnique({
+          where: { id },
+          include: { tea: true },
+        })
+
+        if (paciente) {
+          const relatorio = await gerarRelatorioIA({
+            nome: paciente.nome,
+            dataNascimento: paciente.dataNascimento,
+            tea: tea || paciente.tea,
+          })
+
+          teaData = {
+            ...tea,
+            relatorioIA: relatorio,
+          }
+        }
+      } catch (error) {
+        console.error("Erro ao gerar relatório:", error)
+      }
+    }
 
     const paciente = await prisma.paciente.update({
       where: { id },
       data: {
         ...dadosPaciente,
-        ...(tea && {
+        ...(teaData && {
           tea: {
             upsert: {
-              create: tea,
-              update: tea,
+              create: teaData,
+              update: teaData,
             },
           },
         }),
@@ -139,7 +186,15 @@ export async function gerarRelatorio(req: Request, res: Response) {
       tea: paciente.tea,
     })
 
-    return res.json({ relatorio })
+    // Salvar o relatório no banco de dados
+    const teaAtualizado = await prisma.perfilTEA.update({
+      where: { id: paciente.tea.id },
+      data: {
+        relatorioIA: relatorio,
+      },
+    })
+
+    return res.json({ relatorio, teaAtualizado })
   } catch (error: any) {
     console.error("Erro ao gerar relatório:", error)
     return res.status(500).json({ erro: error.message || "Erro ao gerar relatório" })

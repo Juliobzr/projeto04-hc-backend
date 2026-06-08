@@ -8,9 +8,10 @@
     "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "types": ["node", "jest"],
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "src/lib/prisma"],
+  "include": ["src/**/*", "src/lib/prisma", "tests/**/*"],
   "exclude": ["node_modules", "dist"]
 }

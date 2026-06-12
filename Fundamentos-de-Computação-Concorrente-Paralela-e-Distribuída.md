@@ -1,3 +1,13 @@
+#### Equipe
+ - Jonas de Lima Neto - jln@cesar.school
+ - Luiz Henrique da silva neves - lhsn@cesar.school
+ - Matheus José Cardoso Luna - mjcl@cesar.school
+ - João Eduardo Monteiro Cavalcanti - jemc@cesar.school
+ - Glauco Santos Seixas Cerqueira - gssc@cesar.school
+ - Francisco Italo Machado Dantas - fimd@cesar.school
+ - Julio Bezerra Coelho - jbc@cesar.school
+ - Leonardo Felipe Demétrio Lins Nascimento - lfdln@cesar.school
+
 ## 1. ARQUITETURA DISTRIBUÍDA
 #### Justificativa da Arquitetura
 

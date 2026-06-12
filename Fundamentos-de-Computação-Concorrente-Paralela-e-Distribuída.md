@@ -8,6 +8,12 @@
  - Julio Bezerra Coelho - jbc@cesar.school
  - Leonardo Felipe Demétrio Lins Nascimento - lfdln@cesar.school
 
+#### Dominio
+Gestão de ambiente hospitalar e os elementos envolvidos na prestação de cuidados aos pacientes, incluindo
+informações cadastrais, assistenciais e clínicas utilizadas pelos profissionais de saúde durante o atendimento.
+Também contempla características específicas dos pacientes que possam influenciar a condução da assistência,
+como aspectos relacionados ao Transtorno do Espectro Autista.
+
 ## 1. ARQUITETURA DISTRIBUÍDA
 #### Justificativa da Arquitetura
 

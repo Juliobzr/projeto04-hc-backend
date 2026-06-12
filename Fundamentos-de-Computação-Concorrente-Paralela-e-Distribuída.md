@@ -27,6 +27,10 @@
 
 ## 2. DESENHO DA ARQUITETURA
 - <img width="638" height="1600" alt="image" src="https://github.com/user-attachments/assets/ee66f603-0e88-4abc-be17-43413937b6ce" />
+#### Componentes Identificados
+
+**Backend:**
+```
 projeto04-hc-backend/
 ├── src/
 │   ├── server.ts              (Entrada principal)
@@ -71,6 +75,7 @@ projeto04-hc/
 │   │   └── apiClient.ts       (Cliente HTTP)
 │   └── constants/
 └── package.json
+```
 
 ## 3. CONCORRÊNCIA E PARALELISMO
 #### Mecanismos de Concorrência Identificados

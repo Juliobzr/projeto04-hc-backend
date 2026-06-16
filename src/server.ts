@@ -4,6 +4,8 @@ import dotenv from "dotenv"
 import authRoutes from "./routes/authRoutes"
 import pacienteRoutes from "./routes/pacienteRoutes"
 import usuarioRoutes from "./routes/usuarioRoutes"
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger";
 
 dotenv.config()
 
@@ -25,6 +27,12 @@ app.use("/api/usuarios", usuarioRoutes)
 app.get("/", (req, res) => {
   res.json({ mensagem: "API HC Triagem rodando!" })
 })
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec)
+);
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`)

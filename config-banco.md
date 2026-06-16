@@ -4,10 +4,10 @@ npm install
 DATABASE_URL="..."
 
 # Executar migrations
-npx prisma migrate deploy
+npx prisma migrate deploy --schema src/lib/prisma/schema.prisma
 
 # Popular banco
-npm run seed
+npx prisma db seed
 
 # Iniciar aplicação
 npm run dev
